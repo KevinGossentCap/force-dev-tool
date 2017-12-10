@@ -8,7 +8,7 @@ var tmp = require("tmp");
 describe("force-dev-tool changeset", function() {
 	var fdt = path.resolve(__dirname, "..", "..", "bin", "cli");
 	it("should fail to create a changeset if there is no src/package.xml", function() {
-		this.slow(1000);
+		this.slow(2000);
 		var tmpobj = tmp.dirSync();
 		var changesetCreateCmd = child.spawnSync(
 			"node", [fdt, "changeset", "create", "empty"], {
@@ -21,7 +21,7 @@ describe("force-dev-tool changeset", function() {
 		);
 	});
 	it("should create an empty changeset", function() {
-		this.slow(1000);
+		this.slow(2000);
 		var tmpobj = tmp.dirSync();
 		var packageVersionCmd = child.spawnSync(
 			"node", [fdt, "package", "version", "38.0"], {
@@ -38,7 +38,7 @@ describe("force-dev-tool changeset", function() {
 		assert(new RegExp("38.0").test(changesetCreateCmd.stdout.toString()));
 	});
 	it("should create an empty destructive changeset", function() {
-		this.slow(1000);
+		this.slow(2000);
 		var tmpobj = tmp.dirSync();
 		var packageVersionCmd = child.spawnSync(
 			"node", [fdt, "package", "version", "38.0"], {
@@ -71,7 +71,7 @@ var tests = [{
 		var fdt = path.resolve(__dirname, "..", "..", "bin", "cli");
 		tests.forEach(function(test) {
 			it(test.description, function() {
-				this.slow(5000);
+				this.slow(10000);
 				var tmpobj = tmp.dirSync();
 				var gitDir = tmpobj.name;
 				var gitCloneCmd = child.spawnSync(
