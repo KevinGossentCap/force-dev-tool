@@ -63,17 +63,28 @@ var tests = [{
 		gitCloneUrl: "https://github.com/amtrack/sfdx-playground.git",
 		branch: "apex",
 		description: "should handle added/modified/deleted Apex classes including -meta.xml changes",
-		a: "apex-v1",
-		b: "apex-v2",
-		expected: path.join("config", "deployments", "apex-v1_apex-v2")
+		a: "HEAD^{/v0:}",
+		b: "HEAD",
+		unpackaged_path: "src",
+		expected: path.join("config", "deployments", "expected")
 	},
 	{
 		gitCloneUrl: "https://github.com/amtrack/sfdx-playground.git",
 		branch: "permissionset-v40",
 		description: "should handle added/modified/deleted PermissionSet v40 changes",
-		a: "permissionset-v40-step1",
-		b: "permissionset-v40-step2",
-		expected: path.join("config", "deployments", "permissionset-v40-step1_permissionset-v40-step2")
+		a: "HEAD^{/v0:}",
+		b: "HEAD",
+		unpackaged_path: "src",
+		expected: path.join("config", "deployments", "expected")
+	},
+	{
+		gitCloneUrl: "https://github.com/amtrack/sfdx-playground.git",
+		branch: "objects",
+		description: "should handle added/modified/deleted CustomObjects with children",
+		a: "HEAD^{/v0:}",
+		b: "HEAD",
+		unpackaged_path: "src",
+		expected: path.join("config", "deployments", "expected")
 	}
 ];
 
@@ -97,11 +108,11 @@ var tests = [{
 					cwd: gitDir
 				});
 				assert.deepEqual(gitCheckoutCmd.status, 0, gitCheckoutCmd.stderr);
-				var diffCmd = child.spawnSync("git", ["diff", "--no-renames", test.a, test.b], {
+				var diffCmd = child.spawnSync("git", ["diff", "--no-renames", test.a, test.b, test.unpackaged_path], {
 					cwd: gitDir
 				});
 				var changesetCreateCmd = child.spawnSync(
-					"node", [fdt, "changeset", "create", test.branch], {
+					"node", [fdt, "changeset", "create", "test"], {
 						cwd: gitDir,
 						input: diffCmd.stdout
 					}
@@ -116,7 +127,7 @@ var tests = [{
 						"-u",
 						"-r",
 						path.join(gitDir, test.expected),
-						path.join(gitDir, "config", "deployments", test.branch)
+						path.join(gitDir, "config", "deployments", "test")
 					], {
 						cwd: gitDir
 					}
