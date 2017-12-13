@@ -88,7 +88,7 @@ var tests = [{
 					cwd: gitDir
 				});
 				assert.deepEqual(gitCheckoutCmd.status, 0, gitCheckoutCmd.stderr);
-				var diffCmd = child.spawnSync("git", ["diff", "apex-v1", "apex-v2"], {
+				var diffCmd = child.spawnSync("git", ["diff", "--no-renames", "apex-v1", "apex-v2"], {
 					cwd: gitDir
 				});
 				var changesetCreateCmd = child.spawnSync(
