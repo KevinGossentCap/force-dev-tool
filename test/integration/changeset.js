@@ -60,13 +60,22 @@ describe("force-dev-tool changeset", function() {
 });
 
 var tests = [{
-	gitCloneUrl: "https://github.com/amtrack/sfdx-playground.git",
-	branch: "apex",
-	description: "should handle added/modified/deleted Apex classes including -meta.xml changes",
-	a: "apex-v1",
-	b: "apex-v2",
-	expected: path.join("config", "deployments", "apex-v1_apex-v2")
-}];
+		gitCloneUrl: "https://github.com/amtrack/sfdx-playground.git",
+		branch: "apex",
+		description: "should handle added/modified/deleted Apex classes including -meta.xml changes",
+		a: "apex-v1",
+		b: "apex-v2",
+		expected: path.join("config", "deployments", "apex-v1_apex-v2")
+	},
+	{
+		gitCloneUrl: "https://github.com/amtrack/sfdx-playground.git",
+		branch: "permissionset-v40",
+		description: "should handle added/modified/deleted PermissionSet v40 changes",
+		a: "permissionset-v40-step1",
+		b: "permissionset-v40-step2",
+		expected: path.join("config", "deployments", "permissionset-v40-step1_permissionset-v40-step2")
+	}
+];
 
 (process.env.TEST_INTEGRATION === "true" ? describe : describe.skip)(
 	"git diff | force-dev-tool changeset create",
