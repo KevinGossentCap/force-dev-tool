@@ -18,7 +18,7 @@ describe("force-dev-tool changeset", function() {
 		);
 		assert.deepEqual(changesetCreateCmd.status, 1);
 		assert(
-			/Error:.*No XML to parse!/.test(changesetCreateCmd.stdout.toString())
+			/Error:.*No XML to parse!/.test(changesetCreateCmd.stderr.toString())
 		);
 	});
 	it("should create an empty changeset", function() {
