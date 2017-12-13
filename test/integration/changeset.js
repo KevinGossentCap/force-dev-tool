@@ -112,7 +112,7 @@ var tests = [{
 						cwd: gitDir
 					}
 				);
-				assert.deepEqual(diffDirsCmd.status, 0, diffDirsCmd.stderr);
+				assert.deepEqual(diffDirsCmd.status, 0, diffDirsCmd.stdout);
 			});
 		});
 	}
